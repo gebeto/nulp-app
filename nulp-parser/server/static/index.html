@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>NULP API</title>
+	<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+	<style>
+		body {font-family: 'PT Mono';}
+		.table {
+			border-collapse: collapse;
+			width: 80%;
+			margin: 0 auto;
+		}
+		.table tbody th {
+			text-align: left;
+		}
+		.table tr {
+			border-bottom: solid 2px #888;
+		}
+		.table tbody td {
+			padding: 4px;
+			border-left: 2px solid #888;
+		}
+	</style>
+</head>
+<body>
+	<table class="table">
+		<thead>
+			<tr>
+				<th><h2>Дія</h2></th>
+				<th><h2>Метод</h2></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Отримати всі інститути</th>
+				<td>https://<%= hostname %>/api</td>
+			</tr>
+			<tr>
+				<th>Отримати всі групи</th>
+				<td>https://<%= hostname %>/api/INSTITUTE_ID</td>
+			</tr>
+			<tr>
+				<th>Отримати розклад</th>
+				<td>https://<%= hostname %>/api/INSTITUTE_ID/GROUP_ID/</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

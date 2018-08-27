@@ -1,0 +1,18 @@
+{
+  "name": "nulp-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo ok"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "jsdom": "^11.12.0",
+    "node-fetch": "^2.2.0"
+  }
+}
