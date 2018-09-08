@@ -34,7 +34,7 @@ function toDom(html) {
 }
 
 
-function getInstitutes(html) {
+function parseInstitutes(html) {
 	const document = toDom(html)
 
 	const select = document.querySelector('select#edit-institutecode-selective');
@@ -48,7 +48,7 @@ function getInstitutes(html) {
 }
 
 
-function getGroups(html) {
+function parseGroups(html) {
 	const document = toDom(html)
 
 	const select = document.querySelector('select#edit-edugrupabr-selective');
@@ -61,6 +61,87 @@ function getGroups(html) {
 	return options;
 }
 
+class ParseItem {
+	constructor(element) {
+		this.element = element;
+	}
+
+	toJSON() {
+		throw new Error("Need implement!");
+	}
+}
+
+class DaySheduleItem extends ParseItem {
+	parseItems(itemsParentNode) {
+		const result = [];
+		const items = itemsParentNode.children;
+		for (let i = 0; i < items.length; i += 2) {
+			result.push({
+				title: items[i].textContent,
+				data: new LessonItem(items[i + 1]).toJSON(),
+			});
+		}
+		return result;
+	}
+
+	toJSON() {
+		return {
+			title: this.element.querySelector('.view-grouping-header').textContent,
+			items: this.parseItems(this.element.querySelector('.view-grouping-content')),
+		}
+	}
+}
+
+class LessonItem extends ParseItem {
+	getSubGroup(types) {
+		if (types.indexOf('1') > -1) {
+			return 1
+		}
+
+		if (types.indexOf('2') > -1) {
+			return 2
+		}
+
+		return false;
+	}
+
+	getFraction(types) {
+		if (types.indexOf('chys') > -1) {
+			return 1
+		}
+
+		if (types.indexOf('znam') > -1) {
+			return 2
+		}
+
+		return 3;
+	}
+
+	_toJSON(element) {
+		const dataString = element.innerHTML
+		const data = dataString.replace(/,/g, '').split(/&nbsp;|<br>/);
+		const types = element.parentNode.id.split('_');
+		return {
+			title: data[0].trim(),
+			teacher: data[1].trim(),
+			where: data[2].trim(),
+			type: data[3].trim(),
+			subgroup: this.getSubGroup(types),
+			fraction: this.getFraction(types),
+			active: !!element.parentNode.className,
+		}
+	}
+
+	toJSON() {
+		const elements = this.element.querySelectorAll('.group_content');
+		const res = [];
+		for (let i = 0; i < elements.length; i++) {
+			res.push(this._toJSON(elements[i]));
+		}
+		return res;
+	}
+}
+
 
 class SheduleParser {
 	constructor(html) {
@@ -68,54 +149,37 @@ class SheduleParser {
 		this.shedule = toDom(html).querySelector('div.view-content');
 	}
 
-	get json() {
+	toJSON() {
 		return this.parse(this.shedule)
 	}
 
-	parseData(dataString) {
-		const data = dataString.replace(/,/g, '').split(/&nbsp;|<br>/);
-		return {
-			title: data[0].trim(),
-			teacher: data[1].trim(),
-			where: data[2].trim(),
-			type: data[3].trim(),
-		}
-	}
-
-	parseItems(itemsParentNode) {
-		const result = [];
-		const items = itemsParentNode.children;
-		for (let i = 0; i < items.length; i += 2) {
-			result.push({
-				title: items[i].textContent,
-				data: this.parseData(items[i + 1].querySelector('.group_content').innerHTML),
-			});
-		}
-		return result;
-	}
-
-	parseDay(dayNode) {
-		return {
-			title: dayNode.querySelector('.view-grouping-header').textContent,
-			items: this.parseItems(dayNode.querySelector('.view-grouping-content')),
-		};
-	}
-
 	parse(rootNode) {
-		return [...rootNode.querySelectorAll('.view-grouping')].map(this.parseDay.bind(this));
+		const nodes = rootNode.querySelectorAll('.view-grouping');
+		const res = [];
+		for (let i = 0; i < nodes.length; i++) {
+			res.push(new DaySheduleItem(nodes[i]).toJSON());
+		}
+		return res;
 	}
 }
 
 
-function getShedule(html) {
-	const shedule = new SheduleParser(html);
-	return shedule.json;
+function parseShedule(html) {
+	const parser = new SheduleParser(html);
+	if (parser.shedule) {
+		return parser.toJSON();
+	}
+	return false;
 }
 
 
 exports.fetcher = fetcher;
 exports.fetchPartTime = fetchPartTime;
 exports.fetchFullTime = fetchFullTime;
-exports.getInstitutes = getInstitutes;
-exports.getGroups = getGroups;
-exports.getShedule = getShedule;
+exports.parseInstitutes = parseInstitutes;
+exports.parseGroups = parseGroups;
+exports.parseShedule = parseShedule;
+
+exports.getShedule = function(group) {
+	return fetchFullTime('All', group).then(parseShedule);
+};
