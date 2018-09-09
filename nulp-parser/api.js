@@ -78,7 +78,7 @@ class DaySheduleItem extends ParseItem {
 		for (let i = 0; i < items.length; i += 2) {
 			result.push({
 				title: items[i].textContent,
-				data: new LessonItem(items[i + 1]).toJSON(),
+				items: new LessonItem(items[i + 1]).toJSON(),
 			});
 		}
 		return result;
@@ -181,5 +181,8 @@ exports.parseGroups = parseGroups;
 exports.parseShedule = parseShedule;
 
 exports.getShedule = function(group) {
+	// if (['з', 'З'].indexOf(group[group.length - 1])) {
+	// 	return fetchPartTime('All', group).then(parseShedule);
+	// }
 	return fetchFullTime('All', group).then(parseShedule);
 };
