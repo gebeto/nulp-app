@@ -2,7 +2,7 @@
   "name": "nulp-parser",
   "version": "1.0.0",
   "description": "",
-  "main": "api.js",
+  "main": "api",
   "scripts": {
     "start": "node server",
     "test": "node test.js"

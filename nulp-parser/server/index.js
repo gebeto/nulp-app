@@ -12,9 +12,9 @@ app.engine('html', renderFile);
 app.set('view engine', 'html');
 
 
-app.get('/api', function(req, res) {
+app.get('/api/institutes', function(req, res) {
 	api.fetchPartTime()
-		.then(api.getInstitutes)
+		.then(api.parseInstitutes)
 		.then((data) => {
 			res.send({
 				response: {
@@ -25,9 +25,9 @@ app.get('/api', function(req, res) {
 		})
 });
 
-app.get('/api/:institute', function(req, res) {
+app.get('/api/groups/:institute', function(req, res) {
 	api.fetchPartTime(req.params.institute)
-		.then(api.getGroups)
+		.then(api.parseGroups)
 		.then((data) => {
 			res.send({
 				response: {
@@ -38,9 +38,9 @@ app.get('/api/:institute', function(req, res) {
 		})
 });
 
-app.get('/api/:institute/:group', function(req, res) {
-	api.fetchPartTime(req.params.institute, req.params.group)
-		.then(api.getShedule)
+app.get('/api/:group', function(req, res) {
+	api.fetchPartTime(req.params.group)
+		.then(api.parseShedule)
 		.then((data) => {
 			res.send({
 				response: {
