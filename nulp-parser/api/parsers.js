@@ -29,4 +29,4 @@ exports.parseGroups = function parseGroups(html) {
 }
 
 
-exports.parseShedule = require('./SheduleParser/').parseShedule;
+exports.parseShedule = require('./SheduleParser/');
