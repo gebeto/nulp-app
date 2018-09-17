@@ -5,7 +5,8 @@
   "main": "api",
   "scripts": {
     "start": "node server",
-    "test": "node test.js"
+    "ttest": "node ttest.js",
+    "test": "echo ok"
   },
   "author": "",
   "license": "ISC",
