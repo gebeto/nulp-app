@@ -35,7 +35,7 @@ class LessonItem extends AbstractItem {
 			title: data[0].trim(),
 			teacher: data[1].trim(),
 			where: data[2].trim(),
-			type: data[3].trim(),
+			type: data[3].trim().toLowerCase(),
 			subgroup: this.getSubGroup(types),
 			fraction: this.getFraction(types),
 			active: !!element.parentNode.className,
