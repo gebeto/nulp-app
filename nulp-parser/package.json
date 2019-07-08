@@ -7,7 +7,7 @@
     "start": "node server",
     "test": "echo ok"
   },
-  "author": "",
+  "author": "gebeto <slavik.nychkalo@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.2",
