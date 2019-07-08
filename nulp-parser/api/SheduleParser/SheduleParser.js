@@ -1,7 +1,8 @@
 const toDom = require('../dom').toDom;
 const DaySheduleItem = require('./DaySheduleItem');
 
-module.exports = class SheduleParser {
+
+class SheduleParser {
 	constructor(html) {
 		this.html = html;
 		this.shedule = toDom(html).querySelector('div.view-content');
@@ -20,3 +21,6 @@ module.exports = class SheduleParser {
 		return res;
 	}
 }
+
+
+module.exports = SheduleParser;
