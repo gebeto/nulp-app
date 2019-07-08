@@ -5,7 +5,6 @@
   "main": "api",
   "scripts": {
     "start": "node server",
-    "ttest": "node ttest.js",
     "test": "echo ok"
   },
   "author": "",
