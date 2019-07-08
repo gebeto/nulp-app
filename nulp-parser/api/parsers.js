@@ -30,5 +30,3 @@ exports.parseGroups = function parseGroups(html) {
 	return options;
 }
 
-
-// exports.parseFullSchedule = require('./ScheduleParser/');
