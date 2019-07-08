@@ -2,7 +2,7 @@ const LessonItem = require('./LessonItem');
 const AbstractItem = require('./AbstractItem');
 
 
-module.exports = class DaySheduleItem extends AbstractItem {
+class DaySheduleItem extends AbstractItem {
 	parseItems(itemsParentNode) {
 		const result = [];
 		const items = itemsParentNode.children;
@@ -22,3 +22,6 @@ module.exports = class DaySheduleItem extends AbstractItem {
 		}
 	}
 }
+
+
+module.exports = DaySheduleItem;

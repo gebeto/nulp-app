@@ -12,10 +12,19 @@ app.engine('html', renderFile);
 app.set('view engine', 'html');
 
 
+app.get('/api/shedule/full/:group', function(req, res) {
+	api.getFullShedule(req.params.group).then((data) => {
+		res.send({
+			response: {
+				count: data.length,
+				items: data,
+			}
+		})
+	});
+});
 
-
-app.get('/api/shedule/:group', function(req, res) {
-	api.getShedule(req.params.group).then((data) => {
+app.get('/api/shedule/external/:group', function(req, res) {
+	api.getExternalShedule(req.params.group).then((data) => {
 		res.send({
 			response: {
 				count: data.length,
@@ -26,48 +35,7 @@ app.get('/api/shedule/:group', function(req, res) {
 });
 
 
-
-// app.get('/api/institutes', function(req, res) {
-// 	api.fetchPartTime()
-// 		.then(api.parseInstitutes)
-// 		.then((data) => {
-// 			res.send({
-// 				response: {
-// 					count: data.length,
-// 					items: data,
-// 				}
-// 			})
-// 		})
-// });
-
-// app.get('/api/groups/:institute', function(req, res) {
-// 	api.fetchPartTime(req.params.institute)
-// 		.then(api.parseGroups)
-// 		.then((data) => {
-// 			res.send({
-// 				response: {
-// 					count: data.length,
-// 					items: data,
-// 				}
-// 			})
-// 		})
-// });
-
-// app.get('/api/:group', function(req, res) {
-// 	api.fetchPartTime(req.params.group)
-// 		.then(api.parseShedule)
-// 		.then((data) => {
-// 			res.send({
-// 				response: {
-// 					count: data.length,
-// 					items: data,
-// 				}
-// 			})
-// 		})
-// });
-
 app.get('*', function(req, res) {
-	// res.sendFile(path.resolve(__dirname, 'static/index.html'));
 	res.render(path.resolve(__dirname, 'static/index.html'), {
 		hostname: req.headers.host || "asdas"
 	});

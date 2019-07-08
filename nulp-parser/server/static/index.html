@@ -29,6 +29,7 @@
 			<tr>
 				<th><h2>Дія</h2></th>
 				<th><h2>Метод</h2></th>
+				<th><h2>Приклад</h2></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,8 +42,14 @@
 				<td>https://<%= hostname %>/api/INSTITUTE_ID</td>
 			</tr> -->
 			<tr>
-				<th>Отримати розклад</th>
-				<td>https://<%= hostname %>/api/shedule/<strong>GROUP<strong/></td>
+				<th>Отримати розклад денників</th>
+				<td>https://<%= hostname %>/api/shedule/full/<strong>GROUP<strong/></td>
+				<td><a target="_blank" href="<%= hostname %>/api/shedule/full/ПЗ-31">Example</a></td>
+			</tr>
+			<tr>
+				<th>Отримати розклад заочників</th>
+				<td>https://<%= hostname %>/api/shedule/extenal/<strong>GROUP<strong/></td>
+				<td><a target="_blank" href="<%= hostname %>/api/shedule/extenal/ПЗ-31">Example</a></td>
 			</tr>
 		</tbody>
 	</table>

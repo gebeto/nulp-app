@@ -2,11 +2,10 @@ const fetchers = require('./fetchers');
 const parsers = require('./parsers');
 
 
-exports.getShedule = function(group) {
-	// if (['з', 'З'].indexOf(group[group.length - 1])) {
-	// 	return fetchers.fetchPartTime('All', group).then(parsers.parseShedule);
-	// }
-	// return fetchers.fetchFullTime('All', group).then(parsers.parseShedule);
-	// return fetchers.fetchFullTime('All', group).then(parsers.parseShedule);
+exports.getFullShedule = function(group) {
+	return fetchers.fetchFullTime('All', group).then(parsers.parseShedule);
+};
+
+exports.getExternalShedule = function(group) {
 	return fetchers.fetchFullTime('All', group).then(parsers.parseShedule);
 };

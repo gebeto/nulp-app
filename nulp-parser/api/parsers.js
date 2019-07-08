@@ -2,7 +2,7 @@ const toDom = require('./dom').toDom;
 
 
 exports.parseInstitutes = function parseInstitutes(html) {
-	const document = toDom(html)
+	const document = toDom(html);
 
 	const select = document.querySelector('select#edit-institutecode-selective');
 	const options = [...select.querySelectorAll('option')].map((option, index) => {
@@ -11,12 +11,13 @@ exports.parseInstitutes = function parseInstitutes(html) {
 			"value": option.value,
 		};
 	});
+
 	return options;
 }
 
 
 exports.parseGroups = function parseGroups(html) {
-	const document = toDom(html)
+	const document = toDom(html);
 
 	const select = document.querySelector('select#edit-edugrupabr-selective');
 	const options = [...select.querySelectorAll('option')].map((option, index) => {
@@ -25,6 +26,7 @@ exports.parseGroups = function parseGroups(html) {
 			"value": option.value,
 		};
 	});
+	
 	return options;
 }
 
