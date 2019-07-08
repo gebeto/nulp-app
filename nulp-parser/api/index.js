@@ -1,11 +1,16 @@
-const fetchers = require('./fetchers');
+const fetchers = require('./schedules/fetchers');
 const parsers = require('./parsers');
+const schedules = require('./schedules/');
 
 
-exports.getFullShedule = function(group) {
-	return fetchers.fetchFullTime('All', group).then(parsers.parseShedule);
+exports.getFullSchedule = function(group) {
+	return fetchers
+		.fetchFullTime('All', group)
+		.then(schedules('full'));
 };
 
-exports.getExternalShedule = function(group) {
-	return fetchers.fetchFullTime('All', group).then(parsers.parseShedule);
+exports.getExternalSchedule = function(group) {
+	return fetchers
+		.fetchFullTime('All', group)
+		.then(schedules('external'));
 };

@@ -12,8 +12,8 @@ app.engine('html', renderFile);
 app.set('view engine', 'html');
 
 
-app.get('/api/shedule/full/:group', function(req, res) {
-	api.getFullShedule(req.params.group).then((data) => {
+app.get('/api/schedule/full/:group', function(req, res) {
+	api.getFullSchedule(req.params.group).then((data) => {
 		res.send({
 			response: {
 				count: data.length,
@@ -23,8 +23,8 @@ app.get('/api/shedule/full/:group', function(req, res) {
 	});
 });
 
-app.get('/api/shedule/external/:group', function(req, res) {
-	api.getExternalShedule(req.params.group).then((data) => {
+app.get('/api/schedule/external/:group', function(req, res) {
+	api.getExternalSchedule(req.params.group).then((data) => {
 		res.send({
 			response: {
 				count: data.length,

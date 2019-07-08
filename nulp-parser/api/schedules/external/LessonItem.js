@@ -1,4 +1,4 @@
-const AbstractItem = require('./AbstractItem');
+const AbstractItem = require('../AbstractItem');
 
 
 module.exports = class LessonItem extends AbstractItem {
