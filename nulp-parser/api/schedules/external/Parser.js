@@ -13,8 +13,7 @@ class DayScheduleItem extends AbstractItem {
 		if (items.length < 1) return null;
 		const item = items[0];
 		return {
-			title: item.textContent,
-			index: this.element.querySelector('.view-grouping-header').textContent,
+			title: this.element.querySelector('.view-grouping-header').textContent,
 			items: new LessonItem(items[1]).toJSON(),
 		}
 	}
