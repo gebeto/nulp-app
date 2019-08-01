@@ -12,7 +12,7 @@ class LessonItem extends AbstractItem {
 			return 2
 		}
 
-		return false;
+		return 0;
 	}
 
 	getFraction(types) {
@@ -24,7 +24,11 @@ class LessonItem extends AbstractItem {
 			return 2
 		}
 
-		return 3;
+		return 0;
+	}
+
+	getTitle(data) {
+		return data[0].trim();
 	}
 
 	_toJSON(element) {
@@ -32,7 +36,7 @@ class LessonItem extends AbstractItem {
 		const data = dataString.replace(/,/g, '').split(/&nbsp;|<br>/);
 		const types = element.parentNode.id.split('_');
 		return {
-			title: data[0].trim(),
+			title: this.getTitle(data).trim(),
 			teacher: data[1].trim(),
 			where: data[2].trim(),
 			type: data[3].trim().toLowerCase(),

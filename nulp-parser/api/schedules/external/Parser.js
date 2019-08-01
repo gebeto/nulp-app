@@ -1,45 +1,74 @@
 const toDom = require('../../dom').toDom;
 const AbstractItem = require('../AbstractItem');
 
-const FullParser = require('../full/Parser');
-const LessonItem = FullParser.LessonItem;
-// const DayScheduleItem = FullParser.DayScheduleItem;
+
+function parseLesson(rootElement) {
+	// getSubGroup(types) {
+	// 	if (types.indexOf('1') > -1) {
+	// 		return 1
+	// 	}
+
+	// 	if (types.indexOf('2') > -1) {
+	// 		return 2
+	// 	}
+
+	// 	return 0;
+	// }
+
+	// getFraction(types) {
+	// 	if (types.indexOf('chys') > -1) {
+	// 		return 1
+	// 	}
+
+	// 	if (types.indexOf('znam') > -1) {
+	// 		return 2
+	// 	}
+
+	// 	return 0;
+	// }
+
+	const element = rootElement.querySelector('.group_content');
+	const dataString = element.innerHTML
+	const data = dataString.replace(/,/g, '').split(/&nbsp;|<br>/);
+	const types = element.parentNode.id.split('_');
+	return {
+		title: data[0].trim(),
+		teacher: data[1].trim(),
+		where: data[2].trim(),
+		type: data[3].trim().toLowerCase(),
+		// subgroup: this.getSubGroup(types),
+		// fraction: this.getFraction(types),
+		active: !!element.parentNode.className,
+	};
+}
 
 
-class DayScheduleItem extends AbstractItem {
-	toJSON() {
-		const itemsParentNode = this.element.querySelector('.view-grouping-content');
-		const items = itemsParentNode.children;
-		if (items.length < 1) return null;
-		const item = items[0];
-		return {
-			title: this.element.querySelector('.view-grouping-header').textContent,
-			items: new LessonItem(items[1]).toJSON(),
-		}
+function parseDay(element) {
+	const itemsParentNode = element.querySelector('.view-grouping-content');
+	const items = itemsParentNode.querySelectorAll('.stud_schedule');
+	const result = {};
+	for (let i = 0; i < items.length; i++) {
+		const lesson = new parseLesson(items[i]);
+		result[lesson.title] = lesson;
+	}
+	return {
+		title: element.querySelector('.view-grouping-header').textContent,
+		items: result,
 	}
 }
 
 
-class Parser {
-	constructor(html) {
-		this.html = html;
-		this.schedule = toDom(html).querySelector('div.view-content');
+function parseSchedule(html) {
+	const rootNode = toDom(html).querySelector('div.view-content');
+	const daysElements = rootNode.querySelectorAll('.view-grouping');
+	const result = {};
+	for (let i = 0; i < daysElements.length; i++) {
+		const day = daysElements[i];
+		const data = parseDay(day);
+		result[data.title] = data;
 	}
-
-	toJSON() {
-		return this.parse(this.schedule)
-	}
-
-	parse(rootNode) {
-		const nodes = rootNode.querySelectorAll('.view-grouping');
-		const res = {};
-		for (let i = 0; i < nodes.length; i++) {
-			const data = new DayScheduleItem(nodes[i]).toJSON();
-			res[data.title] = data;
-		}
-		return res;
-	}
+	return result;
 }
 
 
-exports.Parser = Parser;
+exports.Parser = parseSchedule;
