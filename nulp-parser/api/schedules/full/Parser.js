@@ -44,9 +44,10 @@ class LessonItem extends AbstractItem {
 
 	toJSON() {
 		const elements = this.element.querySelectorAll('.group_content');
-		const res = [];
+		const res = {};
 		for (let i = 0; i < elements.length; i++) {
-			res.push(this._toJSON(elements[i]));
+			const data = this._toJSON(elements[i]);
+			res[data.title] = data;
 		}
 		return res;
 	}
@@ -55,13 +56,13 @@ class LessonItem extends AbstractItem {
 
 class DayScheduleItem extends AbstractItem {
 	parseItems(itemsParentNode) {
-		const result = [];
+		const result = {};
 		const items = itemsParentNode.children;
 		for (let i = 0; i < items.length; i += 2) {
-			result.push({
+			result[items[i].textContent] = {
 				title: items[i].textContent,
 				items: new LessonItem(items[i + 1]).toJSON(),
-			});
+			};
 		}
 		return result;
 	}
@@ -87,9 +88,10 @@ class Parser {
 
 	parse(rootNode) {
 		const nodes = rootNode.querySelectorAll('.view-grouping');
-		const res = [];
+		const res = {};
 		for (let i = 0; i < nodes.length; i++) {
-			res.push(new DayScheduleItem(nodes[i]).toJSON());
+			const data = new DayScheduleItem(nodes[i]).toJSON();
+			res[data.title] = data;
 		}
 		return res;
 	}

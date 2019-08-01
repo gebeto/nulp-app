@@ -18,9 +18,10 @@ class Parser {
 
 	parse(rootNode) {
 		const nodes = rootNode.querySelectorAll('.view-grouping');
-		const res = [];
+		const res = {};
 		for (let i = 0; i < nodes.length; i++) {
-			res.push(new DayScheduleItem(nodes[i]).toJSON());
+			const data = new DayScheduleItem(nodes[i]).toJSON();
+			res[data.title] = data;
 		}
 		return res;
 	}
