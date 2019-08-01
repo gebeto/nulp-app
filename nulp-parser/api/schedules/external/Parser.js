@@ -3,7 +3,22 @@ const AbstractItem = require('../AbstractItem');
 
 const FullParser = require('../full/Parser');
 const LessonItem = FullParser.LessonItem;
-const DayScheduleItem = FullParser.DayScheduleItem;
+// const DayScheduleItem = FullParser.DayScheduleItem;
+
+
+class DayScheduleItem extends AbstractItem {
+	toJSON() {
+		const itemsParentNode = this.element.querySelector('.view-grouping-content');
+		const items = itemsParentNode.children;
+		if (items.length < 1) return null;
+		const item = items[0];
+		return {
+			title: item.textContent,
+			index: this.element.querySelector('.view-grouping-header').textContent,
+			items: new LessonItem(items[1]).toJSON(),
+		}
+	}
+}
 
 
 class Parser {
