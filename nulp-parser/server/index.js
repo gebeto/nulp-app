@@ -34,6 +34,16 @@ app.get('/api/schedule/external/:group', function(req, res) {
 	});
 });
 
+// app.get('/api/schedule/external/ics/:group', function(req, res) {
+app.get('/api/schedule/external/ics/:group', function(req, res) {
+	api.getExternalSchedule(req.params.group).then((data) => {
+		const calendar = require('./calendar');
+		res.set({ 'Content-Type': 'text/calendar; charset=utf-8', });
+		const schedule = calendar.createSchedule(`НУЛП ${req.params.group}`, data)
+		res.send(schedule);
+	});
+});
+
 
 app.get('*', function(req, res) {
 	res.render(path.resolve(__dirname, 'static/index.html'), {

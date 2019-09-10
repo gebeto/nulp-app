@@ -5,14 +5,17 @@
   "main": "api",
   "scripts": {
     "start": "node server",
+    "dev": "nodemon server",
     "test": "echo ok"
   },
   "author": "gebeto <slavik.nychkalo@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^2.6.2",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "ics": "^2.16.0",
     "jsdom": "^15.1.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "nodemon": "^1.19.2"
   }
 }
