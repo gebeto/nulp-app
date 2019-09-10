@@ -1,14 +1,14 @@
 const ics = require('ics');
 
 const timetable = {
-	1: [8, 30],
-	2: [10, 20],
-	3: [12, 10],
-	4: [14, 15],
-	5: [16, 00],
-	6: [17, 40],
-	7: [19, 20],
-	8: [21, 00],
+	'1': [8, 30],
+	'2': [10, 20],
+	'3': [12, 10],
+	'4': [14, 15],
+	'5': [16, 00],
+	'6': [17, 40],
+	'7': [19, 20],
+	'8': [21, 00],
 };
 
 const locations = {
@@ -17,8 +17,9 @@ const locations = {
 
 
 function formatLesson(date, lesson) {
+	const start = [...date, ...timetable[lesson.index]];
 	return {
-		start: [...date, ...timetable[lesson.index]],
+		start: start,
 		duration: { hours: 1, minutes: 35 },
 		title: lesson.title,
 		// description: `${lesson.teacher}, ${lesson.type}`,
