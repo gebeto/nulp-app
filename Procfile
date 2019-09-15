@@ -1,1 +1,1 @@
-server: yarn workspace parser start
+web: yarn workspace parser start
