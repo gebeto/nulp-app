@@ -1,1 +1,1 @@
-web: yarn workspace nulp-parser start
+web: yarn workspace nulp-api-server start

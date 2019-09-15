@@ -2,8 +2,7 @@ const express = require('express');
 const renderFile = require('ejs').renderFile;
 const path = require('path');
 
-const api = require('../api');
-
+const parser = require('nulp-parser');
 const calendar = require('nulp-calendar');
 
 const PORT = process.env.PORT || 5000;
@@ -14,7 +13,7 @@ app.set('view engine', 'html');
 
 
 app.get('/api/schedule/full/:group', function(req, res) {
-	api.getFullSchedule(req.params.group).then((data) => {
+	parser.getFullSchedule(req.params.group).then((data) => {
 		res.send({
 			response: {
 				count: data.length,
@@ -26,7 +25,7 @@ app.get('/api/schedule/full/:group', function(req, res) {
 
 
 app.get('/api/schedule/external/:group', function(req, res) {
-	api.getExternalSchedule(req.params.group).then((data) => {
+	parser.getExternalSchedule(req.params.group).then((data) => {
 		res.send({
 			response: {
 				count: data.length,
@@ -38,7 +37,7 @@ app.get('/api/schedule/external/:group', function(req, res) {
 
 
 app.get('/api/schedule/external/ics/:group', function(req, res) {
-	api.getExternalSchedule(req.params.group).then((data) => {
+	parser.getExternalSchedule(req.params.group).then((data) => {
 		res.set({ 'Content-Type': 'text/calendar; charset=utf-8', });
 		const schedule = calendar.createSchedule(`НУЛП ${req.params.group}`, data)
 		res.send(schedule);
