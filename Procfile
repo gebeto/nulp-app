@@ -1,0 +1,1 @@
+server: yarn workspace parser start
