@@ -4,6 +4,7 @@ const path = require('path');
 
 const api = require('../api');
 
+const calendar = require('nulp-calendar');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -23,6 +24,7 @@ app.get('/api/schedule/full/:group', function(req, res) {
 	});
 });
 
+
 app.get('/api/schedule/external/:group', function(req, res) {
 	api.getExternalSchedule(req.params.group).then((data) => {
 		res.send({
@@ -34,10 +36,9 @@ app.get('/api/schedule/external/:group', function(req, res) {
 	});
 });
 
-// app.get('/api/schedule/external/ics/:group', function(req, res) {
+
 app.get('/api/schedule/external/ics/:group', function(req, res) {
 	api.getExternalSchedule(req.params.group).then((data) => {
-		const calendar = require('./calendar');
 		res.set({ 'Content-Type': 'text/calendar; charset=utf-8', });
 		const schedule = calendar.createSchedule(`НУЛП ${req.params.group}`, data)
 		res.send(schedule);
