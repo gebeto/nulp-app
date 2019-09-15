@@ -1,1 +1,1 @@
-web: yarn workspace nulp-api-server start
+web: yarn workspace @nulp/api-server start

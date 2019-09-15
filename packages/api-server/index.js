@@ -2,8 +2,8 @@ const express = require('express');
 const renderFile = require('ejs').renderFile;
 const path = require('path');
 
-const parser = require('nulp-parser');
-const calendar = require('nulp-calendar');
+const parser = require('@nulp/parser');
+const calendar = require('@nulp/calendar');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -47,7 +47,8 @@ app.get('/api/schedule/external/ics/:group', function(req, res) {
 
 app.get('*', function(req, res) {
 	res.render(path.resolve(__dirname, 'static/index.html'), {
-		hostname: req.headers.host || "asdas"
+		hostname: req.headers.host,
+		version: require('./package.json').version
 	});
 });
 

@@ -3,7 +3,7 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
-  	"start": "yarn workspace nulp-api-server start"
+  	"start": "yarn workspace @nulp/api-server start"
   },
   "repository": "https://github.com/gebeto/nulp-app",
   "author": "<slavik.nychkalo@gmail.com>",

@@ -1,5 +1,5 @@
 {
-  "name": "nulp-calendar",
+  "name": "@nulp/calendar",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

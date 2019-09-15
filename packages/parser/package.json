@@ -1,18 +1,15 @@
 {
-  "name": "nulp-api-server",
+  "name": "@nulp/parser",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
     "test": "echo ok"
   },
   "author": "gebeto <slavik.nychkalo@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^2.7.1",
-    "express": "^4.17.1",
-    "nodemon": "^1.19.2"
+    "jsdom": "^15.1.1",
+    "node-fetch": "^2.6.0"
   }
 }
