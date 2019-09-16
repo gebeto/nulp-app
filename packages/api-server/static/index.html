@@ -25,11 +25,14 @@
 		.version {
 			position: fixed;
 			bottom: 0;
-			left: 0;
-			padding: 5px;
+			right: 0;
+			padding: 8px 1em;
+			background: #000;
 			font-size: 12px;
 			font-weight: 900;
-			color: #555;
+			/*color: #555;*/
+			color: #fff;
+			border-top-left-radius: 1em;
 		}
 	</style>
 </head>
@@ -69,6 +72,6 @@
 		</tbody>
 	</table>
 
-	<span class="version"><%= version %></span>
+	<span class="version">v<%= version %></span>
 </body>
 </html>
