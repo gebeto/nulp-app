@@ -1,1 +1,1 @@
-web: yarn workspace @nulp/api-server start
+web: node packages/api-server/index.js
