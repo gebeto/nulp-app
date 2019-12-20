@@ -9,22 +9,23 @@ function objToUrl(obj) {
 }
 
 
-function fetcher(shedule_url, institute = "All", group = "All") {
+function fetcher(shedule_url, institute = "All", group = "All", semester = 1) {
 	let url = `${BASE_URL}/${shedule_url}?` + objToUrl({
-		institutecode_selective: institute ? institute : '',
-		edugrupabr_selective: group ? group : '',
+		institutecode_selective: institute,
+		edugrupabr_selective: group,
+		semestr: semester,
 	});
 	return fetch(url).then(res => res.text());
 }
 
 
-function fetchExternalTime(institute, group) {
-	return fetcher('parttime_schedule', institute, group);
+function fetchExternalTime(institute, group, semester) {
+	return fetcher('parttime_schedule', institute, group, semester);
 }
 
 
-function fetchFullTime(institute, group) {
-	return fetcher('students_schedule', institute, group);
+function fetchFullTime(institute, group, semester) {
+	return fetcher('students_schedule', institute, group, semester);
 }
 
 

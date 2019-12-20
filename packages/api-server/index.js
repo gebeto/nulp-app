@@ -36,10 +36,41 @@ app.get('/api/schedule/external/:group', function(req, res) {
 });
 
 
+app.get('/api/schedule/external/:group/:semester', function(req, res) {
+	parser.getExternalSchedule(req.params.group, req.params.semester).then((data) => {
+		res.send({
+			response: {
+				count: data.length,
+				items: data,
+			}
+		})
+	});
+});
+
+
 app.get('/api/schedule/external/ics/:group', function(req, res) {
 	parser.getExternalSchedule(req.params.group).then((data) => {
 		res.set({ 'Content-Type': 'text/calendar; charset=utf-8', });
-		const schedule = calendar.createSchedule(`НУЛП ${req.params.group}`, data)
+		const schedule = calendar.createSchedule(
+			`НУЛП ${req.params.group}`,
+			data
+		);
+		res.send(schedule);
+	});
+});
+
+const semesters = {
+	1: "Осінь",
+	2: "Весна",
+}
+
+app.get('/api/schedule/external/ics/:group/:semester', function(req, res) {
+	parser.getExternalSchedule(req.params.group, req.params.semester).then((data) => {
+		res.set({ 'Content-Type': 'text/calendar; charset=utf-8', });
+		const schedule = calendar.createSchedule(
+			`НУЛП ${req.params.group} ${semesters[req.params.semester]}`,
+			data
+		);
 		res.send(schedule);
 	});
 });
