@@ -9,7 +9,7 @@
   "author": "gebeto <slavik.nychkalo@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.5.0",
     "node-fetch": "^2.6.0"
   }
 }
